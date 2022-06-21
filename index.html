@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="65" src="sounds/boom.wav"></audio>
   <audio data-key="83" src="sounds/hihat.wav"></audio>
   <audio data-key="68" src="sounds/kick.wav"></audio>
   <audio data-key="70" src="sounds/openhat.wav"></audio>
@@ -59,6 +59,23 @@
 
 <script>
 
+  function playSounds(e) {
+    const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!sound) return;
+    sound.currentTime = 0;
+    sound.play();
+    key.classList.add('playing');
+  };
+  const keys = document.querySelectorAll(".key");
+  keys.forEach(key => key.addEventListener("transitionend", removeTransformation));
+
+  function removeTransformation(e) {
+    if(e.propertyName !== "transform") return;
+    this.classList.remove("playing");
+    // console.log(e);
+  };
+  window.addEventListener("keydown", playSounds);
 </script>
 
 
