@@ -5,3 +5,7 @@
 Day 1 - JavaScript Drum Kit
 
 Day 2 - CSS + JS clock
+
+Day 3 - CSS variables
+
+Day 4 - Array cardio day 1
