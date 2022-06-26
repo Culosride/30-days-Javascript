@@ -62,7 +62,6 @@
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
-      border: solid 1px red;
     }
     .panel > *:first-child {
       transform: translateY(-400%);
@@ -128,16 +127,23 @@
 
   <script>
     const panels = document.querySelectorAll(".panel");
-    function open() {
-      this.classList.toggle("open")
+    function toggleOpen() {
+      panels.forEach(panel => { if (panel.classList.contains("open")) {
+        panel.classList.toggle("open")
+        }
+      });
+      (this.classList.contains("open-active")) ? this.classList.remove("open") : this.classList.add("open")
+      console.log(this.classList)
     }
+
     function openActive(e) {
       if(e.propertyName.includes("flex"))
         this.classList.toggle("open-active")
     }
 
-    panels.forEach(panel => panel.addEventListener("click", open));
+    panels.forEach(panel => panel.addEventListener("click", toggleOpen));
     panels.forEach(panel => panel.addEventListener("transitionend", openActive));
+
   </script>
 
 
