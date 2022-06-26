@@ -10,3 +10,6 @@ Day 3 - CSS variables
   also added corner radius control
 
 Day 4 - Array cardio day 1
+
+Day 5 - Flex panel gallery
+  also implemented unselected panel closing with better toggle
