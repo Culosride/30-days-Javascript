@@ -13,3 +13,5 @@ Day 4 - Array cardio day 1
 
 Day 5 - Flex panel gallery
   also implemented unselected panel closing with better toggle
+
+Day 6 - Ajax type ahead
