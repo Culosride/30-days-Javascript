@@ -17,3 +17,5 @@ Day 5 - Flex panel gallery
 Day 6 - Ajax type ahead
 
 Day 7 - Array cardio day 1
+
+Day 8 - HTML canvas
