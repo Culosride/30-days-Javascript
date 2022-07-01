@@ -13,7 +13,7 @@
       <label for="colorpicker">Color picker:</label>
       <input id="colorpicker" type="color" name="colorpicker" value="#BADA55">
 
-      <label for="fixedstroke">Lock stroke style:</label>
+      <label for="fixedstroke">Dynamic brush:</label>
       <input id="fixedstroke" type="checkbox" name="fixedstroke">
     </div>
   </div>
@@ -32,8 +32,6 @@
   <!-- moveto coordinates -->
 
 <script>
-  const strokestatus = document.querySelector("#fixedstroke")
-  // strokestatus.addEventListener("input", () => console.log(strokestatus.checked))
   const canvas = document.querySelector("#draw")
   const ctx = canvas.getContext("2d")
   canvas.width = window.innerWidth;
@@ -41,26 +39,65 @@
   ctx.strokeStyle = "#BADA55";
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
-  let hue = 0;
-  // ctx.lineWidth = hue;
-  ctx.lineWidth = 20;
+
   let isDrawing = false;
   let direction = true;
+  let hex = ctx.strokeStyle;
+  let hsl = hexToHSL(hex);
+  let hue = hsl.h * 360;
+  ctx.lineWidth = hue;
+  let dynamicBrush = false;
+
   [lastX, lastY] = [0, 0]
 
   const controls = document.querySelectorAll(".sliders > input");
-  console.log(controls)
-  controls.forEach(input => input.addEventListener("input", () => {
-    ctx.strokeStyle = input.value
-    ctx.lineWidth = input.value
+  let controlsBg = document.querySelector(".sliders-container");
 
+  controls.forEach(input => input.addEventListener("input", () => {
+    if (input.name.includes("fixedstroke")) {
+      (dynamicBrush === true) ? dynamicBrush = false : dynamicBrush = true
+    };
+    if (input.name.includes("brushsize")) {
+      ctx.lineWidth = input.value
+    };
+    if (input.name.includes("colorpicker")) {
+      ctx.strokeStyle = input.value
+      hex = input.value;
+      hsl = hexToHSL(hex);
+      hue = hsl.h * 360;
+      controlsBg.style.setProperty("--dynamic", hex)
+    }
   }));
 
+  function hexToHSL(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    r = parseInt(result[1], 16);
+    g = parseInt(result[2], 16);
+    b = parseInt(result[3], 16);
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if(max == min){
+      h = s = 0; // achromatic
+    }else{
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch(max){
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+      }
+      h /= 6;
+    }
+    var HSL = new Object();
+    HSL['h']=h;
+    HSL['s']=s;
+    HSL['l']=l;
+    return HSL;
+  };
 
   function draw(e) {
     if (!isDrawing) return;
-    // console.log(e);
-    // ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY)
     ctx.lineTo(e.offsetX, e.offsetY)
@@ -68,20 +105,22 @@
 
     [lastX, lastY] = [e.offsetX, e.offsetY]
 
-    // hue++;
-    // if (hue >= 360) {
-    //   hue = 0
-    // }
+    if (dynamicBrush) {
+      ctx.strokeStyle = `hsl(${hue}, ${hsl.s * 100}%, ${hsl.l * 100}%)`;
+      hue++;
+      if (hue >= 360) {
+        hue = 0
+      }
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+        direction = !direction
+      }
+      if (direction) {
+        ctx.lineWidth++;
+      } else {
+        ctx.lineWidth--;
+      }
+    }
 
-    // if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-    //   direction = !direction
-    // }
-
-    // if (direction) {
-    //   ctx.lineWidth++;
-    // } else {
-    //   ctx.lineWidth--;
-    // }
   }
 
   canvas.addEventListener("mousedown", () => {
@@ -96,18 +135,19 @@
 </script>
 
 <style>
+  :root {
+  --dynamic: #BADA55;
+  }
+
   html, body {
     margin: 0;
   }
 
   .sliders-container {
-    /* position: relative; */
     padding: 30px;
-    background-color: #F5F0BB;
+    background-color: var(--dynamic);
   }
-  .sliders {
-    /* position: absolute; */
-  }
+
 
 </style>
 
