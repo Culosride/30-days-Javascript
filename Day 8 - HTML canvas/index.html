@@ -65,7 +65,7 @@
       hex = input.value;
       hsl = hexToHSL(hex);
       hue = hsl.h * 360;
-      controlsBg.style.setProperty("--dynamic", hex)
+      controlsBg.style.setProperty("--dynamic", ctx.strokeStyle)
     }
   }));
 
@@ -108,6 +108,7 @@
     if (dynamicBrush) {
       ctx.strokeStyle = `hsl(${hue}, ${hsl.s * 100}%, ${hsl.l * 100}%)`;
       hue++;
+      controlsBg.style.setProperty("--dynamic", ctx.strokeStyle)
       if (hue >= 360) {
         hue = 0
       }
@@ -136,7 +137,7 @@
 
 <style>
   :root {
-  --dynamic: #BADA55;
+  --dynamic: hsl(50, 100%, 50%);
   }
 
   html, body {
@@ -147,8 +148,6 @@
     padding: 30px;
     background-color: var(--dynamic);
   }
-
-
 </style>
 
 </body>
