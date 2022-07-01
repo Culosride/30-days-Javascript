@@ -5,6 +5,18 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
+  <div class="container sliders-container">
+    <div class="sliders">
+      <label for="brushsize">Brushsize:</label>
+      <input id="brushsize" type="range" name="brushsize" min="1" max="100" value="50" data-sizing="px">
+
+      <label for="colorpicker">Color picker:</label>
+      <input id="colorpicker" type="color" name="colorpicker" value="#BADA55">
+
+      <label for="fixedstroke">Lock stroke style:</label>
+      <input id="fixedstroke" type="checkbox" name="fixedstroke">
+    </div>
+  </div>
 <canvas id="draw" width="800" height="800"></canvas>
 <!-- select canvas -->
 <!-- set canvas height and width -->
@@ -20,6 +32,8 @@
   <!-- moveto coordinates -->
 
 <script>
+  const strokestatus = document.querySelector("#fixedstroke")
+  // strokestatus.addEventListener("input", () => console.log(strokestatus.checked))
   const canvas = document.querySelector("#draw")
   const ctx = canvas.getContext("2d")
   canvas.width = window.innerWidth;
@@ -28,16 +42,25 @@
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
   let hue = 0;
-  ctx.lineWidth = hue;
+  // ctx.lineWidth = hue;
+  ctx.lineWidth = 20;
   let isDrawing = false;
   let direction = true;
   [lastX, lastY] = [0, 0]
 
+  const controls = document.querySelectorAll(".sliders > input");
+  console.log(controls)
+  controls.forEach(input => input.addEventListener("input", () => {
+    ctx.strokeStyle = input.value
+    ctx.lineWidth = input.value
+
+  }));
+
+
   function draw(e) {
     if (!isDrawing) return;
-    console.log(e);
-    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-    // strokestyle sets hue, saturation, lightness
+    // console.log(e);
+    // ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
     ctx.beginPath();
     ctx.moveTo(lastX, lastY)
     ctx.lineTo(e.offsetX, e.offsetY)
@@ -45,20 +68,20 @@
 
     [lastX, lastY] = [e.offsetX, e.offsetY]
 
-    hue++;
-    if (hue >= 360) {
-      hue = 0
-    }
+    // hue++;
+    // if (hue >= 360) {
+    //   hue = 0
+    // }
 
-    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-      direction = !direction
-    }
+    // if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+    //   direction = !direction
+    // }
 
-    if (direction) {
-      ctx.lineWidth++;
-    } else {
-      ctx.lineWidth--;
-    }
+    // if (direction) {
+    //   ctx.lineWidth++;
+    // } else {
+    //   ctx.lineWidth--;
+    // }
   }
 
   canvas.addEventListener("mousedown", () => {
@@ -76,7 +99,22 @@
   html, body {
     margin: 0;
   }
+
+  .sliders-container {
+    /* position: relative; */
+    padding: 30px;
+    background-color: #F5F0BB;
+  }
+  .sliders {
+    /* position: absolute; */
+  }
+
 </style>
 
 </body>
 </html>
+
+<!-- strokesize = slider -->
+
+<!-- colorpicker -->
+<!-- fixed color, fixed stroke => checkbox -->

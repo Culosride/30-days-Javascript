@@ -19,3 +19,4 @@ Day 6 - Ajax type ahead
 Day 7 - Array cardio day 1
 
 Day 8 - HTML canvas
+  also added color picker and stroke size slider
