@@ -21,3 +21,7 @@ Day 7 - Array cardio day 1
 Day 8 - HTML canvas
   also added color picker and stroke size slider
   also added color chaning controls div according to color picked or dynamic brush
+
+Day 9 - Dev tools tricks
+
+Day 10 - Hold shift to check multiple checkboxes
