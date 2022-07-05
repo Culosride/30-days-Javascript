@@ -96,23 +96,24 @@
   </div>
 
 <script>
-  const userInput = document.querySelectorAll("input")
-  // console.log(userInput)
-  let shiftOn = false
-  document.addEventListener("keydown", (e) => {
-    if (e.keyCode === 16) shiftOn = true
-    console.log(shiftOn)
-  })
-  document.addEventListener("keyup", (e) => {
-    if (e.keyCode === 16) shiftOn = false
-    console.log(shiftOn)
-  }
-  )
+  const checkboxes = document.querySelectorAll("input")
+  let lastChecked;
 
-  // userInput.forEach((input, index) => input.addEventListener("input", (e) => {
-  //   console.log(index)
-  //   if (shiftOn &&) &&
-  // }))
+  function shiftCheck (e) {
+    let betweenBoxes = false;
+    if (e.shiftKey && this.checked) {
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          betweenBoxes = !betweenBoxes;
+        }
+        if (betweenBoxes) checkbox.checked = true
+      });
+    }
+    lastChecked = this;
+  }
+
+  checkboxes.forEach((checkbox) => checkbox.addEventListener("click", (shiftCheck)));
+
 </script>
 </body>
 </html>
