@@ -25,3 +25,5 @@ Day 8 - HTML canvas
 Day 9 - Dev tools tricks
 
 Day 10 - Hold shift to check multiple checkboxes
+
+Day 11 - HTML video player
