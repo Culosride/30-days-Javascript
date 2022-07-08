@@ -6,7 +6,6 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
-console.dir(video)
 function togglePlay() {
   const method = video.paused ? "play" : "pause";
   video[method]();
@@ -14,7 +13,6 @@ function togglePlay() {
 
 function btnUpdate() {
   const icon = this.paused ? '►' : '❚ ❚';
-  console.dir(toggle)
   toggle.innerText = icon;
 }
 
@@ -27,10 +25,35 @@ function rangeUpdate() {
   video[this.name] = this.value
 }
 
+function videoProgress() {
+  progressPerc = video.currentTime/video.duration * 100;
+  progressBar.style.setProperty('flex-basis', `${progressPerc}%`);
+}
+
+let mouseDown = false;
+function setProgressClick(e) {
+  video.currentTime = e.offsetX/640*video.duration
+}
+function setProgressDrag(e) {
+  if(mouseDown)video.currentTime = e.offsetX/640*video.duration
+}
+
+skipButtons.forEach(btn => btn.addEventListener("click", skip))
 video.addEventListener("pause", btnUpdate)
 video.addEventListener("play", btnUpdate)
+
 video.addEventListener("click", togglePlay)
 toggle.addEventListener("click", togglePlay)
-skipButtons.forEach(btn => btn.addEventListener("click", skip))
+
+video.addEventListener("timeupdate", videoProgress)
+video.addEventListener("timeupdate", videoProgress)
+
+progress.addEventListener("click", setProgressClick)
+
+progress.addEventListener("mouseup", () => mouseDown = false)
+progress.addEventListener("mousedown", () => mouseDown = true)
+progress.addEventListener("mousemove", setProgressDrag)
+
+
 ranges.forEach(range => range.addEventListener("change", rangeUpdate))
 ranges.forEach(range => range.addEventListener("mousemove", rangeUpdate))
