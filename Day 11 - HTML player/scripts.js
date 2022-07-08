@@ -31,11 +31,8 @@ function videoProgress() {
 }
 
 let mouseDown = false;
-function setProgressClick(e) {
+function setProgress(e) {
   video.currentTime = e.offsetX/640*video.duration
-}
-function setProgressDrag(e) {
-  if(mouseDown)video.currentTime = e.offsetX/640*video.duration
 }
 
 skipButtons.forEach(btn => btn.addEventListener("click", skip))
@@ -48,11 +45,11 @@ toggle.addEventListener("click", togglePlay)
 video.addEventListener("timeupdate", videoProgress)
 video.addEventListener("timeupdate", videoProgress)
 
-progress.addEventListener("click", setProgressClick)
+progress.addEventListener("click", setProgress)
 
+progress.addEventListener("mousemove", (e) => mouseDown && setProgress(e))
 progress.addEventListener("mouseup", () => mouseDown = false)
 progress.addEventListener("mousedown", () => mouseDown = true)
-progress.addEventListener("mousemove", setProgressDrag)
 
 
 ranges.forEach(range => range.addEventListener("change", rangeUpdate))
