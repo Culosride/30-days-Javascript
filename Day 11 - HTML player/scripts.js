@@ -1,6 +1,10 @@
-const player = document.querySelector(".player")
-const video = player.querySelector(".viewer")
-const toggle = player.querySelector(".toggle")
+const player = document.querySelector('.player');
+const video = player.querySelector('.viewer');
+const progress = player.querySelector('.progress');
+const progressBar = player.querySelector('.progress__filled');
+const toggle = player.querySelector('.toggle');
+const skipButtons = player.querySelectorAll('[data-skip]');
+const ranges = player.querySelectorAll('.player__slider');
 
 console.dir(video)
 function togglePlay() {
@@ -10,10 +14,17 @@ function togglePlay() {
 
 function btnUpdate() {
   const icon = this.paused ? '►' : '❚ ❚';
-  toggle.textContent = icon;
+  console.dir(toggle)
+  toggle.innerText = icon;
+}
+
+function skip() {
+  const skip = this.dataset.skip
+  video.currentTime += parseFloat(skip)
 }
 
 video.addEventListener("pause", btnUpdate)
 video.addEventListener("play", btnUpdate)
-toggle.addEventListener("click", togglePlay)
 video.addEventListener("click", togglePlay)
+toggle.addEventListener("click", togglePlay)
+skipButtons.forEach(btn => btn.addEventListener("click", skip))
