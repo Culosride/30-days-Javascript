@@ -27,3 +27,5 @@ Day 9 - Dev tools tricks
 Day 10 - Hold shift to check multiple checkboxes
 
 Day 11 - HTML video player
+
+Day 12 - KONAMI secret code
