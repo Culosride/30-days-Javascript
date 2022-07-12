@@ -43,21 +43,33 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        var later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    }
-
+    // function debounce(func, wait = 20, immediate = true) {
+    //   var timeout;
+    //   return function() {
+    //     var context = this, args = arguments;
+    //     var later = function() {
+    //       timeout = null;
+    //       if (!immediate) func.apply(context, args);
+    //     };
+    //     var callNow = immediate && !timeout;
+    //     clearTimeout(timeout);
+    //     timeout = setTimeout(later, wait);
+    //     if (callNow) func.apply(context, args);
+    //   };
+    // }
+    // console.log(pics)
+    const pics = document.querySelectorAll("img")
+    document.addEventListener("scroll", () => pics.forEach(pic => {
+      if (pic.y < 860) {
+        pic.style.setProperty("opacity", 1);
+        pic.style.setProperty("transform", "translateX(0) scale(1)");
+      }
+      if (pic.y < 0) {
+        pic.style.setProperty("opacity", 0);
+        pic.style.removeProperty("transform");
+      }
+      }
+    ))
   </script>
 
   <style>
