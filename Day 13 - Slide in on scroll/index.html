@@ -60,16 +60,16 @@
     // console.log(pics)
     const pics = document.querySelectorAll("img")
     document.addEventListener("scroll", () => pics.forEach(pic => {
-      if (window.scrollY+pic.y < window.scrollY+window.innerHeight - (pic.height/2)) {
-        // pic.style.setProperty("opacity", 1);
-        // pic.style.setProperty("transform", "translateX(0) scale(1)");
-        pic.classList.add("active");
-        if (pic.y +pic.height< 0) {
-          // pic.style.setProperty("opacity", 0);
-          // pic.style.removeProperty("transform");
-          pic.classList.remove("active");
+        if (window.scrollY+pic.y < window.scrollY + window.innerHeight - (pic.height/4)) {
+          // pic.style.setProperty("opacity", 1);
+          // pic.style.setProperty("transform", "translateX(0) scale(1)");
+          pic.classList.add("active");
         }
-      }
+        if (pic.y + pic.height < 0 || window.scrollY + pic.y > window.scrollY + window.innerHeight - (pic.height/4)) {
+            // pic.style.setProperty("opacity", 0);
+            // pic.style.removeProperty("transform");
+            pic.classList.remove("active");
+        }
       }
     ))
   </script>
