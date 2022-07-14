@@ -34,3 +34,5 @@ Day 13 - Slide in on scroll
 
 Day 14 - Reference vs copy
   experiments with object spread
+
+Day 15 - LocalStorage and event delegation
