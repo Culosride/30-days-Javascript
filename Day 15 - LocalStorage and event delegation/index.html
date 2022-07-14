@@ -36,7 +36,7 @@
     const text = (this.querySelector("[name=item]")).value
     const item = {
       text,
-      check: false
+      check: true
     };
     items.push(item)
     this.reset();
@@ -46,8 +46,7 @@
     function toggle(e) {
       if(!e.target.matches("input")) return;
       const el = e.target;
-      el.data_check = !el.data_check
-      console.log(el, el.data_check);
+      items[el.id].check = !items[el.id].check
     }
 
 
@@ -55,7 +54,7 @@
     platesList.innerHTML = plates.map((plate, i) => {
       return `
         <li>
-          <input name="${plate.text}" type=checkbox id="${i}" data-check="${plate.check ? "checked" : "unchecked"}">
+          <input name="${plate.text}" type=checkbox id="${i}" ${plate.check ? "checked" : ""}>
           <label for="${i}">${plate.text}</label>
         </li>
       `;
