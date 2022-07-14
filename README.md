@@ -31,3 +31,6 @@ Day 11 - HTML video player
 Day 12 - KONAMI secret code
 
 Day 13 - Slide in on scroll
+
+Day 14 - Reference vs copy
+  experiments with object spread
