@@ -46,10 +46,17 @@
         2: 4
       }
     };
-
     // and think we make a copy:
+    const parents = {
+      mom: "gina",
+      pap: "gino"
+    }
     const babbo = {
       ...person,
+      color: "blu",
+      parents: {
+        ...parents
+      }
     }
     console.log(babbo, person)
     // how do we take a copy instead?
