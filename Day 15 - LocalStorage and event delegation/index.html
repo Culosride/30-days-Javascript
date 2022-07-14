@@ -30,9 +30,31 @@
   const itemsList = document.querySelector('.plates');
   const items = [];
 
+  function addItem(e) {
+    e.preventDefault()
+    // console.log("ciao")
+    const text = (this.querySelector("[name=item]")).value
+    const item = {
+      text,
+      check: false
+    };
+    items.push(item)
+    this.reset();
+    populateList(items, itemsList)
+  }
+
+  function populateList(plates = [], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>${plate.text}</li>
+      `;
+    }).join("");
+  }
+
+
+  addItems.addEventListener("submit", addItem)
 </script>
 
 
 </body>
 </html>
-s
