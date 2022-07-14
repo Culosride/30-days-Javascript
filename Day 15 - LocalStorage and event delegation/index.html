@@ -43,15 +43,27 @@
     populateList(items, itemsList)
   }
 
+    function toggle(e) {
+      if(!e.target.matches("input")) return;
+      const el = e.target;
+      el.data_check = !el.data_check
+      console.log(el, el.data_check);
+    }
+
+
   function populateList(plates = [], platesList) {
     platesList.innerHTML = plates.map((plate, i) => {
       return `
-        <li>${plate.text}</li>
+        <li>
+          <input name="${plate.text}" type=checkbox id="${i}" data-check="${plate.check ? "checked" : "unchecked"}">
+          <label for="${i}">${plate.text}</label>
+        </li>
       `;
     }).join("");
   }
 
 
+  itemsList.addEventListener("click", toggle)
   addItems.addEventListener("submit", addItem)
 </script>
 
