@@ -22,10 +22,11 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
-      <input type="button" id="deleteAll" disabled name="delete" value="Delete all">
-      <input type="checkbox" id="selectAll" name="SelectAll" value="Select all">
-      <label id="selectLabel" for="SelectAll">Select all</label>
-
+      <input type="button" id="deleteAll" disabled name="delete" value="Delete list">
+      <div class="">
+        <input type="checkbox" id="selectAll" name="SelectAll" value="Select all">
+        <label id="selectLabel" for="SelectAll">Select all</label>
+      </div>
     </form>
   </div>
 
@@ -40,13 +41,13 @@
   checkSelection()
 
   function checkSelection() {
-    if(items.every(item => item.check === true) && (items.length>1)) {
-      selectLabel.innerText = "Deselect all"
-      selectBtn.checked = true
+    if(items.every(item => item.check) && (items.length>0)) {
+      selectLabel.innerText = "Deselect all";
+      selectBtn.checked = true;
     } else {
       selectLabel.innerText = "Select all";
       selectBtn.checked = false;
-    }
+    };
   }
 
   function deleteAll() {
@@ -74,16 +75,15 @@
 
   function selectAll() {
     items.forEach(item => {
-      if(selectBtn.checked === true) {
-        selectLabel.innerText = "Deselect all"
+      if(selectBtn.checked) {
         item.check = true;
         } else {
-        selectLabel.innerText = "Select all"
         item.check = !item.check;
         }
       });
-        localStorage.setItem("items", JSON.stringify(items));
-        populateList(items, itemsList);
+    checkSelection();
+    localStorage.setItem("items", JSON.stringify(items));
+    populateList(items, itemsList);
   };
 
   function addItem(e) {
@@ -104,6 +104,7 @@
     const elIndex = e.target.dataset.index;
     items[elIndex].check = !items[elIndex].check;
     localStorage.setItem("items", JSON.stringify(items));
+    checkSelection();
   }
 
   function populateList(plates = [], platesList) {
