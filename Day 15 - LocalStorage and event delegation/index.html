@@ -22,18 +22,48 @@
     <form class="add-items">
       <input type="text" name="item" placeholder="Item Name" required>
       <input type="submit" value="+ Add Item">
-      <input type="button" id="deleteAll" disabled name="delete" value="Delete all" placeholder="Item Name" required>
+      <input type="button" id="deleteAll" disabled name="delete" value="Delete all">
+      <input type="checkbox" id="selectAll" name="SelectAll" value="Select all">
+      <label for="SelectAll">Select all</label>
+
     </form>
   </div>
 
 <script>
   const addItems = document.querySelector('.add-items');
-  const deleteBtn = document.getElementById('deleteAll');
   const itemsList = document.querySelector('.plates');
-  const items = JSON.parse(localStorage.getItem("items")) || [];
+  const deleteBtn = document.getElementById('deleteAll');
+  const selectBtn = document.getElementById('selectAll');
+  let items = JSON.parse(localStorage.getItem("items")) || [];
+  if(items.every(item => item.check === true)) selectBtn.checked = true
+
 
   function deleteAll() {
-    items.localStorage.clear()
+    window.localStorage.clear();
+    items.length = 0
+    populateList(items, itemsList);
+    (!items.length) ? deleteBtn.disabled = true : deleteBtn.disabled = false
+  }
+
+  function selectAll() {
+    // console.log(items)
+    console.log(selectBtn.checked)
+    if(selectBtn.checked === true) {
+      items.forEach(item => {
+        item.check = true;
+        //  console.log(item.check)
+
+        localStorage.setItem("items", JSON.stringify(items));
+      })} else {
+        // console.log("ciao")
+        items.forEach(item => {
+          item.check = !item.check;
+          //  console.log(item.check)
+        })
+        localStorage.setItem("items", JSON.stringify(items));
+
+  };
+    populateList(items, itemsList);
   }
 
   function addItem(e) {
@@ -58,7 +88,7 @@
   }
 
   function populateList(plates = [], platesList) {
-    (!items.length) ? deleteBtn.disabled : deleteBtn.disabled = false
+    (!items.length) ? deleteBtn.disabled = true : deleteBtn.disabled = false
     platesList.innerHTML = plates.map((plate, i) => {
       return `
       <li>
@@ -67,14 +97,12 @@
         </li>
         `;
       }).join("");
-      console.log(!items.length)
-      console.log(deleteBtn)
     }
-
 
     itemsList.addEventListener("click", toggle)
     addItems.addEventListener("submit", addItem)
     deleteBtn.addEventListener("click", deleteAll)
+    selectBtn.addEventListener("click", selectAll)
     populateList(items, itemsList)
 
   </script>
