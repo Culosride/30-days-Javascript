@@ -38,15 +38,16 @@
       text,
       check: true
     };
-    items.push(item)
+    items.push(item);
+    populateList(items, itemsList);
+    localStorage.setItem("items", JSON.stringify(items));
     this.reset();
-    populateList(items, itemsList)
   }
 
     function toggle(e) {
       if(!e.target.matches("input")) return;
-      const el = e.target;
-      items[el.id].check = !items[el.id].check
+      const elIndex = e.target.dataset.index;
+      items[elIndex].check = !items[elIndex].check
     }
 
 
@@ -54,8 +55,8 @@
     platesList.innerHTML = plates.map((plate, i) => {
       return `
         <li>
-          <input name="${plate.text}" type=checkbox id="${i}" ${plate.check ? "checked" : ""}>
-          <label for="${i}">${plate.text}</label>
+          <input name="${plate.text}" data-index="${i}" type=checkbox id="item${i}" ${plate.check ? "checked" : ""}>
+          <label for="item${i}">${plate.text}</label>
         </li>
       `;
     }).join("");
