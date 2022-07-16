@@ -37,12 +37,23 @@
 <script>
   const hero = document.querySelector(".hero")
   const heroH1 = document.querySelector(".hero > h1")
-  console.log(heroH1)
+  // console.log(heroH1)
+  // const width = heroH1.clientWidth
+  // const height = heroH1.clientHeight
 
   function shadow(e) {
-    const distanceX = e.offsetX-e.target.clientWidth/2
-    const distanceY = e.offsetY-e.target.clientHeight/2
-    heroH1.style.setProperty("text-shadow", `${-distanceX*0.01}px ${-distanceY*0.01}px 5px rgba(0,0,0,0.5)`)
+    // const distanceX = (e.offsetX-heroH1.clientWidth/2)
+    // const distanceY = (e.offsetY-heroH1.clientHeight/2)
+    // if(e.target.localName.includes("div")) heroH1.style.setProperty("text-shadow", `${-distanceX*0.051}px ${-distanceY*0.051}px 5px rgba(0,0,0,0.5)`)
+
+    const distanceX = (e.pageX-heroH1.offsetLeft-heroH1.clientWidth/2)
+    const distanceY = (e.pageY-heroH1.offsetTop-heroH1.clientHeight/2)
+    heroH1.style.setProperty("text-shadow", `${-distanceX*0.02}px ${-distanceY*0.02}px 5px rgba(0,0,0,0.5)`)
+
+    // console.log(e.offsetX, e.offsetY)
+    // console.log("clientX", heroH1.clientWidth/2, "clientY", heroH1.clientHeight/2)
+    console.log("offX", e.pageX, "offY", e.pageY)
+    console.log("disX", distanceX, "disY", distanceY)
   }
 
   hero.addEventListener("mousemove", shadow)
