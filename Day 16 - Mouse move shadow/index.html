@@ -39,12 +39,13 @@
   const heroH1 = document.querySelector(".hero > h1")
 
   function shadow(e) {
-    const distanceX = (e.pageX-heroH1.offsetLeft-heroH1.clientWidth/2)
-    const distanceY = (e.pageY-heroH1.offsetTop-heroH1.clientHeight/2)
-    heroH1.style.setProperty("text-shadow", `${-distanceX*0.02}px ${-distanceY*0.02}px 5px rgba(0,0,0,0.5)`)
+    const distanceX = (e.pageX - heroH1.offsetLeft - heroH1.offsetWidth/2)
+    const distanceY = (e.pageY - heroH1.offsetTop - heroH1.offsetHeight/2)
+    heroH1.style.textShadow = `${-distanceX*0.02}px ${-distanceY*0.02}px 5px rgba(0,0,0,0.5)`
   }
 
   hero.addEventListener("mousemove", shadow)
+
 </script>
 </body>
 </html>
