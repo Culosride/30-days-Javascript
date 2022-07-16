@@ -29,25 +29,22 @@
   }
 
   h1 {
-    text-shadow: 10px 10px 0 rgb(255, 0, 0);
+    text-shadow: 0px 0px 0 rgba(0, 255, 0, 0.75);
     font-size: 100px;
-    transition: all .07s;
+    transition: all .075s;
   }
   </style>
 
 <script>
   const hero = document.querySelector(".hero")
   const heroH1 = document.querySelector(".hero > h1")
+  const shadowMultiplier = 0.015
 
   function shadow(e) {
     const distanceX = (e.pageX - heroH1.offsetLeft - heroH1.offsetWidth/2)
     const distanceY = (e.pageY - heroH1.offsetTop - heroH1.offsetHeight/2)
-    const shadowMultiplier = 0.015
-    const redShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 5px rgba(255,0,0,0.75)`
-    const greenShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 5px rgba(0,255,0,0.75)`
-    const blueShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 5px rgba(0,0,255,0.75)`
-    const colors = [redShadow, greenShadow, blueShadow]
-    heroH1.style.textShadow = colors[Math.floor(Math.random()*colors.length)];
+    let randomColor = [Math.round(Math.floor(Math.random() * 255)), Math.round(Math.floor(Math.random() * 255)), Math.round(Math.floor(Math.random() * 255))]
+    const textShadow = heroH1.style.textShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 3px rgba(${randomColor},0.75)`
   }
 
   hero.addEventListener("mousemove", shadow)
