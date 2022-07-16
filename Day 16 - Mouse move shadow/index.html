@@ -48,7 +48,7 @@
     let randomRGB = [randomize(255), randomize(255), randomize(255)]
     const distanceX = (e.pageX - heroH1.offsetLeft - heroH1.offsetWidth/2)
     const distanceY = (e.pageY - heroH1.offsetTop - heroH1.offsetHeight/2)
-    const textShadow = heroH1.style.textShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 3px rgba(${randomRGB},0.75)`
+    heroH1.style.textShadow = `${-distanceX*shadowMultiplier}px ${-distanceY*shadowMultiplier}px 3px rgba(${randomRGB},0.75)`
   }
 
   hero.addEventListener("mousemove", shadow)
