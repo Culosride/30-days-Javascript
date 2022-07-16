@@ -36,3 +36,6 @@ Day 14 - Reference vs copy
   experiments with object spread
 
 Day 15 - LocalStorage and event delegation
+  also delete all btn and select/deselect all btn
+
+Day 16 - Mouse move shadow
