@@ -29,8 +29,9 @@
   }
 
   h1 {
-    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    text-shadow: 10px 10px 0 rgb(255, 0, 0);
     font-size: 100px;
+    transition: all .07s;
   }
   </style>
 
@@ -41,7 +42,11 @@
   function shadow(e) {
     const distanceX = (e.pageX - heroH1.offsetLeft - heroH1.offsetWidth/2)
     const distanceY = (e.pageY - heroH1.offsetTop - heroH1.offsetHeight/2)
-    heroH1.style.textShadow = `${-distanceX*0.02}px ${-distanceY*0.02}px 5px rgba(0,0,0,0.5)`
+    const redShadow = `${-distanceX*0.015}px ${-distanceY*0.015}px 5px rgba(255,0,0,0.75)`
+    const greenShadow = `${-distanceX*0.015}px ${-distanceY*0.015}px 5px rgba(0,255,0,0.75)`
+    const blueShadow = `${-distanceX*0.015}px ${-distanceY*0.015}px 5px rgba(0,0,255,0.75)`
+    const colors = [redShadow, greenShadow, blueShadow]
+    heroH1.style.textShadow = colors[Math.floor(Math.random()*colors.length)];
   }
 
   hero.addEventListener("mousemove", shadow)
