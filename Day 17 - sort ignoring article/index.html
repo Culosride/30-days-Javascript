@@ -46,13 +46,14 @@
   <ul id="bands"></ul>
 
 <script>
-const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
-const regex = /^the\s/i
-const newBands = bands.map(band => {
-  if(band.match(regex)) return band
-  // ((band.split(regex).join("")))
-})
-// console.table(newBands.sort())
+  const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+  const regex = /^the |an |a /i
+
+  bands.sort((a, b) =>
+    a.split(regex).join("").localeCompare(b.split(regex).join(""))
+  );
+  console.table(bands)
+
 
 </script>
 
