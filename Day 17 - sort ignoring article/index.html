@@ -49,11 +49,11 @@
   const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
   const regex = /^the |an |a /i
 
-  bands.sort((a, b) =>
-    a.split(regex).join("").localeCompare(b.split(regex).join(""))
-  );
-  console.table(bands)
+  function split(string) {
+    return string.split(regex).join("");
+  }
 
+  bands.sort((a, b) => split(a).localeCompare(split(b)));
 
 </script>
 
