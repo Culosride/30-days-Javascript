@@ -40,3 +40,5 @@ Day 15 - LocalStorage and event delegation
 
 Day 16 - Mouse move shadow
   also adds iridescent shadow
+
+Day 17 - sort ignoring article
