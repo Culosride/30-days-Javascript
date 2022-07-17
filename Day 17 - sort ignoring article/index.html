@@ -55,6 +55,17 @@
 
   bands.sort((a, b) => split(a).localeCompare(split(b)));
 
+  const list = document.getElementById("bands")
+
+  function renderList(bands, bandsList) {
+    bandsList.innerHTML = bands.map(band =>{
+      return `
+      <li>${band}</li>
+        `;
+      }).join("");
+  }
+
+  renderList(bands, list)
 </script>
 
 </body>
