@@ -42,3 +42,6 @@ Day 16 - Mouse move shadow
   also adds iridescent shadow
 
 Day 17 - sort ignoring article
+
+Day 18 - Adding up time with reduce
+  also better splitting
